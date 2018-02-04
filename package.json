@@ -5,15 +5,25 @@
   "description": "A tiny client side utility for tracing/debugging web apps",
   "main": "dist/pomelog.js",
   "license": "MIT",
+  "unpkg": "dist/pomelog.js",
   "author": {
     "name": "Tsachi Shushan",
     "email": "tsachishushan@gmail.com"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "prepublish": "npm run lint && npm run build"
+  },
   "files": [
-    "dist/pomelog.js"
+    "dist"
   ],
   "keywords": [
     "pomelog"
-  ]
+  ],
+  "devDependencies": {
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.5.0",
+    "typescript": "^2.7.1"
+  }
 }
