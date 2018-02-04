@@ -1,0 +1,20 @@
+{
+  "name": "pomelog",
+  "version": "1.0.0",
+  "repository": "tsachis/pomelog",
+  "description": "A tiny client side utility for tracing/debugging web apps",
+  "main": "pomelog.js",
+  "license": "MIT",
+  "author": {
+    "name": "Tsachi Shushan",
+    "email": "tsachishushan@gmail.com"
+  },
+  "scripts": {
+  },
+  "files": [
+    "pomelog.js"
+  ],
+  "keywords": [
+    "pomelog"
+  ]
+}
