@@ -14,22 +14,26 @@ class Pomelog {
 
   public log(component: string, ...args) {
     const cnsl = this.window.console;
-    if (!this.isEnabled) {
-      return;
-    }
-    if (!component || typeof component !== 'string') {
-      cnsl.warn(`First argument to pomelog.log 
-                          must be a string specifying the component/namespace name`);
-      return;
-    }
-    if (this.shouldLog(component)) {
-      if (this.useGroup) {
-        cnsl.group(`${this.groupPrefix} ${component}`.trim());
-        cnsl.log.apply(cnsl, args);
-        cnsl.groupEnd();
-      } else {
-        cnsl.log.apply(this.window.console, args);
+    try {
+      if (!this.isEnabled) {
+        return;
       }
+      if (!component || typeof component !== 'string') {
+        cnsl.warn(`First argument to pomelog.log 
+                          must be a string specifying the component/namespace name`);
+        return;
+      }
+      if (this.shouldLog(component)) {
+        if (this.useGroup) {
+          cnsl.group(`${this.groupPrefix} ${component}`.trim());
+          cnsl.log.apply(cnsl, args);
+          cnsl.groupEnd();
+        } else {
+          cnsl.log.apply(this.window.console, args);
+        }
+      }
+    } catch (err) {
+      cnsl.error(err);
     }
   }
 
@@ -51,4 +55,10 @@ class Pomelog {
   }
 }
 
-window['pomelog'] = new Pomelog(window);
+export interface IPomelog {
+  log(component: string, ...args: any[]): void;
+  enable(): void;
+  setFilter(filter: string): void;
+}
+
+export const pomelog: IPomelog = new Pomelog(window);

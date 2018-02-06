@@ -3,18 +3,11 @@
   "compilerOptions": {
     "lib": ["es2015", "dom"],
     "target": "es5",
-    "module": "system",
+    "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
-    "sourceMap": true,
-    "outDir": "dist"
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "outDir": ""
+  }
 }

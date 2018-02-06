@@ -4,16 +4,17 @@
   "repository": "tsachis/pomelog",
   "description": "A tiny client side utility for tracing/debugging web apps",
   "main": "dist/pomelog.js",
+  "types": "dist/main.d.ts",
   "license": "MIT",
-  "unpkg": "dist/pomelog.js",
+  "unpkg": "dist/pomelog.d.ts",
   "author": {
     "name": "Tsachi Shushan",
     "email": "tsachishushan@gmail.com"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "webpack --env dev && webpack --env build",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "prepublish": "npm run lint && npm run build"
+    "prepare": "npm run lint && npm run build"
   },
   "files": [
     "dist"
@@ -22,8 +23,11 @@
     "pomelog"
   ],
   "devDependencies": {
+    "ts-loader": "^3.4.0",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.5.0",
-    "typescript": "^2.7.1"
+    "typescript": "^2.7.1",
+    "webpack": "^3.10.0",
+    "yargs": "^11.0.0"
   }
 }
