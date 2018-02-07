@@ -1,6 +1,6 @@
 {
   "name": "pomelog",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "repository": "tsachis/pomelog",
   "description": "A tiny client side utility for tracing/debugging web apps",
   "main": "dist/pomelog.js",
