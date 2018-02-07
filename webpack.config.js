@@ -2,30 +2,40 @@
 
 const webpack = require('webpack');
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-const path = require('path');
 const env = require('yargs').argv.env;
 const pkg = require('./package.json');
 
 let libraryName = pkg.name;
 
-let plugins = [], outputFile;
+let plugins = [],
+    outputExt,
+    devtool,
+    libraryExport;
 
-if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = libraryName + '.min.js';
-} else {
-  outputFile = libraryName + '.js';
+switch (env) {
+  case 'es':
+    outputExt = '.es.js';
+    break;
+  case 'browser-min':
+    outputExt = '.min.js';
+    libraryExport = 'default';
+    plugins.push(new UglifyJsPlugin({ minimize: true }));
+    break;
+ default:
+    outputExt = '.js';
+    devtool = 'source-map';
+    libraryExport = 'default';
 }
 
 const config = {
   entry: __dirname + '/src/pomelog.ts',
-  devtool: 'source-map',
+  devtool: devtool,
   output: {
     path: __dirname + '/dist',
-    filename: outputFile,
+    filename: libraryName + outputExt,
     library: libraryName,
     libraryTarget: 'umd',
-    libraryExport: 'pomelog',
+    libraryExport: libraryExport,
     umdNamedDefine: true
   },
   module: {

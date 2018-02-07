@@ -61,4 +61,5 @@ export interface IPomelog {
   setFilter(filter: string): void;
 }
 
-export const pomelog: IPomelog = new Pomelog(window);
+const pomelog: IPomelog = new Pomelog(window);
+export default pomelog;
