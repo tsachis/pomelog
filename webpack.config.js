@@ -2,54 +2,48 @@
 
 const webpack = require('webpack');
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-const env = require('yargs').argv.env;
 const pkg = require('./package.json');
+const libraryName = pkg.name;
 
-let libraryName = pkg.name;
-
-let plugins = [],
-    outputExt,
-    devtool,
-    libraryExport;
-
-switch (env) {
-  case 'es':
-    outputExt = '.es.js';
-    break;
-  case 'browser-min':
+const config = (buildType) => {
+  let plugins = [],
+      outputExt = '.js',
+      devtool,
+      libraryExport = 'default';
+  if (buildType === 'min') {
+    plugins = [new UglifyJsPlugin({minimize: true})];
     outputExt = '.min.js';
-    libraryExport = 'default';
-    plugins.push(new UglifyJsPlugin({ minimize: true }));
-    break;
- default:
-    outputExt = '.js';
+  } else if (buildType === 'es') {
+    outputExt = '.es.js';
+    libraryExport = undefined;
+  } else {
     devtool = 'source-map';
-    libraryExport = 'default';
-}
+  }
 
-const config = {
-  entry: __dirname + '/src/pomelog.ts',
-  devtool: devtool,
-  output: {
-    path: __dirname + '/dist',
-    filename: libraryName + outputExt,
-    library: libraryName,
-    libraryTarget: 'umd',
-    libraryExport: libraryExport,
-    umdNamedDefine: true
-  },
-  module: {
-    rules: [
-      {
-        test: /(\.ts)$/,
-        loader: 'ts-loader'
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['.ts', '.js']
-  },
-  plugins: plugins
+  return {
+    entry: __dirname + '/src/pomelog.ts',
+    devtool: devtool,
+    output: {
+      path: __dirname + '/dist',
+      filename: libraryName + outputExt,
+      library: libraryName,
+      libraryTarget: 'umd',
+      libraryExport: libraryExport,
+      umdNamedDefine: true
+    },
+    module: {
+      rules: [
+        {
+          test: /(\.ts)$/,
+          loader: 'ts-loader'
+        }
+      ]
+    },
+    resolve: {
+      extensions: ['.ts', '.js']
+    },
+    plugins: plugins
+  }
 };
 
-module.exports = config;
+module.exports = ['default', 'min', 'es'].map(config);

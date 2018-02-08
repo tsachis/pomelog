@@ -62,4 +62,5 @@ export interface IPomelog {
 }
 
 const pomelog: IPomelog = new Pomelog(window);
+window['pomelog'] = pomelog;
 export default pomelog;

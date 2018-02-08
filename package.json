@@ -6,16 +6,16 @@
   "main": "dist/pomelog.js",
   "module": "dist/pomelog.es.js",
   "jsnext:main": "dist/pomelog.es.js",
+  "unpkg": "dist/pomelog.min.js",
   "types": "dist/pomelog.d.ts",
   "typings": "dist/pomelog.d.ts",
   "license": "MIT",
-  "unpkg": "dist/pomelog.min.js",
   "author": {
     "name": "Tsachi Shushan",
     "email": "tsachishushan@gmail.com"
   },
   "scripts": {
-    "build": "webpack --env browser && webpack --env browser-min && webpack --env es",
+    "build": "webpack",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "prepare": "npm run lint && npm run build"
   },
