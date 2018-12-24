@@ -6,12 +6,17 @@ const pkg = require('./package.json');
 const libraryName = pkg.name;
 
 const config = (buildType) => {
-  let plugins = [],
+  let plugins = [
+    new webpack.WatchIgnorePlugin([
+      /\.js$/,
+      /\.d\.ts$/
+    ])
+  ],
       outputExt = '.js',
       devtool,
       libraryExport = 'default';
   if (buildType === 'min') {
-    plugins = [new UglifyJsPlugin({minimize: true})];
+    plugins.push(new UglifyJsPlugin({minimize: true}));
     outputExt = '.min.js';
   } else if (buildType === 'es') {
     outputExt = '.es.js';
@@ -42,7 +47,10 @@ const config = (buildType) => {
     resolve: {
       extensions: ['.ts', '.js']
     },
-    plugins: plugins
+    plugins: plugins,
+    watchOptions: {
+      ignored: ['node_modules', 'dist']
+    }
   }
 };
 

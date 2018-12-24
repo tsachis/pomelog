@@ -15,6 +15,7 @@
     "email": "tsachishushan@gmail.com"
   },
   "scripts": {
+    "dev": "webpack --watch",
     "build": "webpack",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "prepare": "npm run lint && npm run build"
